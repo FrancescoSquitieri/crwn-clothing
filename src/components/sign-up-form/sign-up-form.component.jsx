@@ -40,7 +40,7 @@ const SignUpForm = () => {
                 return;
             }
         } catch (err) {
-            if (err.code == "auth/email-already-in-use") {
+            if (err.code === "auth/email-already-in-use") {
                 alert("warning! the email is already registred");
                 return;
             } else {
@@ -55,7 +55,7 @@ const SignUpForm = () => {
 
     return (
         <div className='sign-up-container'>
-            <h2>Dont't have an account</h2>
+            <h2>Don't have an account?</h2>
             <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
                 <FormInput
