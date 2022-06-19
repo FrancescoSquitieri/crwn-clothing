@@ -1,6 +1,15 @@
 import { useContext } from 'react';
 import { CartContext } from '../../context/cart.context';
-import './checkout-item.styles.scss';
+import {
+    CheckoutItemArrow,
+    CheckoutItemContainer,
+    CheckoutItemFields,
+    CheckoutItemImg,
+    CheckoutItemImgContainer,
+    CheckoutItemQuantity,
+    CheckoutItemRemoveButton,
+    CheckoutItemValue,
+} from './checkout-item.styles';
 
 export const CheckoutItem = ({ product }) => {
 
@@ -11,20 +20,20 @@ export const CheckoutItem = ({ product }) => {
     const handleIncrementCartItem = () => addItemToCart(product);
 
     return (
-        <div className='checkout-item-container'>
-            <div className='image-container'>
-                <img src={imageUrl} alt={`${name}`} />
-            </div>
-            <span className='name'>{name}</span>
-            <span className='quantity'>
-                <div className='arrow' onClick={handleDecrementCartItem}>&#10094;</div>
-                <span className='value'>{quantity}</span>
-                <div className='arrow' onClick={handleIncrementCartItem}>&#10095;</div>
-            </span>
-            <span className='price'>{price}</span>
-            <div className='remove-button' onClick={handleRemoveItemFromCheckout}>
+        <CheckoutItemContainer>
+            <CheckoutItemImgContainer>
+                <CheckoutItemImg src={imageUrl} alt={`${name}`} />
+            </CheckoutItemImgContainer>
+            <CheckoutItemFields>{name}</CheckoutItemFields>
+            <CheckoutItemQuantity>
+                <CheckoutItemArrow onClick={handleDecrementCartItem}>&#10094;</CheckoutItemArrow>
+                <CheckoutItemValue>{quantity}</CheckoutItemValue>
+                <CheckoutItemArrow onClick={handleIncrementCartItem}>&#10095;</CheckoutItemArrow>
+            </CheckoutItemQuantity>
+            <CheckoutItemFields>{price}</CheckoutItemFields>
+            <CheckoutItemRemoveButton onClick={handleRemoveItemFromCheckout}>
                 &#10005;
-            </div>
-        </div>
+            </CheckoutItemRemoveButton>
+        </CheckoutItemContainer>
     );
 };

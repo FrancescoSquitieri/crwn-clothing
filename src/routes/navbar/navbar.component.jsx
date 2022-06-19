@@ -1,5 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
-import './navbar.styles.scss';
+import { NavbarContainer, LogoContainer, NavbarLink, NavbarLinks } from './navbar.styles';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { useContext } from "react";
 import { UserContext } from "../../context/user.context";
@@ -15,17 +15,17 @@ const Navbar = () => {
 
     return (
         <>
-            <div className='navigation'>
-                <Link className='logo-container' to='/'>
+            <NavbarContainer>
+                <LogoContainer to='/'>
                     <CrwnLogo className='logo' />
-                </Link>
-                <div className='nav-links-container'>
-                    <Link className='nav-link' to='/shop'>
+                </LogoContainer>
+                <NavbarLinks>
+                    <NavbarLink to='/shop'>
                         SHOP
-                    </Link>
-                    <Link className='nav-link' to='/contact'>
+                    </NavbarLink>
+                    <NavbarLink to='/contact'>
                         CONTACT
-                    </Link>
+                    </NavbarLink>
                     {
                         currentUser ?
                             (
@@ -37,15 +37,15 @@ const Navbar = () => {
                             )
                             :
                             (
-                                <Link className='nav-link' to='/auth'>
+                                <NavbarLink to='/auth'>
                                     SIGN IN
-                                </Link>
+                                </NavbarLink>
                             )
                     }
                     <CartIcon />
-                </div>
+                </NavbarLinks>
                 {cartIsOpen && <CartDropdown />}
-            </div>
+            </NavbarContainer>
             <Outlet />
         </>
     );
