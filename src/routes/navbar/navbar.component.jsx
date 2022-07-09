@@ -1,17 +1,20 @@
-import { Outlet, Link } from "react-router-dom";
-import { NavbarContainer, LogoContainer, NavbarLink, NavbarLinks } from './navbar.styles';
+import { Outlet } from "react-router-dom";
+import { NavbarContainer, LogoContainer, NavbarLink, NavbarLinks, NavbarSignOut } from './navbar.styles';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
-import { useContext } from "react";
-import { UserContext } from "../../context/user.context";
-import { CartContext } from "../../context/cart.context";
-import { SignOutUser } from "../../utils/firebase/firebase.utils";
 import { CartIcon } from "../../components/cart-icon/cart-icon.component";
 import { CartDropdown } from "../../components/cart-drop-down/cart-dropdown.component";
+import { selectCartIsOpen } from "../../store/cart/cart.selector";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { signOutStart } from "../../store/user/user.action";
 
 const Navbar = () => {
 
-    const { currentUser } = useContext(UserContext);
-    const { cartIsOpen } = useContext(CartContext);
+    const currentUser = useSelector(selectCurrentUser);
+    const cartIsOpen = useSelector(selectCartIsOpen);
+    const dispatch = useDispatch();
+
+    const SignOutUser = () => dispatch(signOutStart());
 
     return (
         <>
@@ -29,11 +32,11 @@ const Navbar = () => {
                     {
                         currentUser ?
                             (
-                                <span
+                                <NavbarSignOut
                                     className='nav-link'
                                     onClick={SignOutUser}>
                                     SIGN OUT
-                                </span>
+                                </NavbarSignOut>
                             )
                             :
                             (

@@ -27,3 +27,8 @@ export const NavbarLink = styled(Link)`
          padding: 10px 15px;
          cursor: pointer;
 `
+
+export const NavbarSignOut = styled.span`
+         padding: 10px 15px;
+         cursor: pointer;
+`

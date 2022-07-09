@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCartItems, selectCartPrice } from '../../store/cart/cart.selector';
 import { useNavigate } from 'react-router';
 import { CheckoutItem } from '../../components/checkout-item/checkout-item.component';
-import { CartContext } from '../../context/cart.context';
 import Button from '../../../src/components/button/button.component';
 import {
     CheckoutBlock,
@@ -11,10 +11,12 @@ import {
     CheckoutEmpty,
     CheckoutEmptyText
 } from './checkout.styles';
+import { PaymentForm } from '../../components/payment-form/payment-form.component';
 
 export const Checkout = () => {
 
-    const { cartItems, totalPrice } = useContext(CartContext);
+    const cartItems = useSelector(selectCartItems);
+    const totalPrice = useSelector(selectCartPrice);
     const navigate = useNavigate();
     const goToShopNavigateHandler = () => navigate('/shop');
 
@@ -55,6 +57,7 @@ export const Checkout = () => {
                 )
             }
             <CheckoutTotal>Total: ${totalPrice}</CheckoutTotal>
+            <PaymentForm />
         </CheckoutContainer>
     );
 };
