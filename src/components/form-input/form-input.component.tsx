@@ -1,6 +1,11 @@
 import { Input, FormInputLabel, InputGroup } from "./form-input.styles";
+import {FC, InputHTMLAttributes} from "react";
 
-const FormInput = ({ label, ...otherProps }) => {
+export type FormInputProps = {
+    label: string;
+} & InputHTMLAttributes<HTMLInputElement>
+
+const FormInput: FC<FormInputProps> = ({ label, ...otherProps }) => {
     return (
         <InputGroup>
             <Input
@@ -9,7 +14,7 @@ const FormInput = ({ label, ...otherProps }) => {
             {
                 label && (
                     <FormInputLabel
-                        shrink={otherProps.value.length}
+                        shrink={Boolean(otherProps.value && typeof otherProps.value === "string" && otherProps.value.length)}
                     >
                         {label}
                     </FormInputLabel>

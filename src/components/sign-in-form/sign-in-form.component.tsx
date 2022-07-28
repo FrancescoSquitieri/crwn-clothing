@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { googleSignInStart, emailSignInStart } from '../../store/user/user.action';
 import Button, { BUTTON_TYPES_CLASSES } from '../button/button.component';
 import FormInput from '../form-input/form-input.component';
@@ -27,25 +26,17 @@ const SignInForm = () => {
         setFormFields(defaultFormFields);
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
             dispatch(emailSignInStart(email, password));
             resetFormFields();
-        } catch (err) {
-            if (err.code === "auth/wrong-password") {
-                alert("password is wrong!")
-                return;
-            }
-            if (err.code === "auth/user-not-found") {
-                alert("email doesn't exist!")
-                return;
-            }
-            console.log(err);
+        } catch (error) {
+            console.log(error);
         }
     }
-    const handleFormFieldsChange = (event) => {
+    const handleFormFieldsChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
     };

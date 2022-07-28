@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { selectCartItems, selectCartPrice } from '../../store/cart/cart.selector';
 import { useNavigate } from 'react-router';
 import { CheckoutItem } from '../../components/checkout-item/checkout-item.component';
-import Button from '../../../src/components/button/button.component';
+import Button from '../../components/button/button.component';
 import {
     CheckoutBlock,
     CheckoutContainer,

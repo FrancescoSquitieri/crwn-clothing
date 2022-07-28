@@ -1,9 +1,10 @@
-import { useState } from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../store/user/user.action";
 import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import { SignUpContainer, SignUpHeader } from './sign-up-form.styles';
+import {AuthError, AuthErrorCodes} from "firebase/auth";
 
 const defaultFormFields = {
     displayName: '',
@@ -22,14 +23,14 @@ const SignUpForm = () => {
         setFormFields(defaultFormFields);
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (password !== confirmPassword) {
             alert("password and confirm password must be the same");
             return;
         } else if (password === confirmPassword && password.length < 6) {
-            alert("the length of password should be min 6 charactes");
+            alert("the length of password should be min 6 characters");
             return;
         }
 
@@ -37,15 +38,15 @@ const SignUpForm = () => {
             dispatch(signUpStart(email, password, displayName));
             resetFormFields()
         } catch (err) {
-            if (err.code === "auth/email-already-in-use") {
-                alert("warning! the email is already registred");
+            if ((err as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
+                alert("warning! the email is already registered");
                 return;
             } else {
                 console.log(err);
             }
         }
     }
-    const handleFormFieldsChange = (event) => {
+    const handleFormFieldsChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
     };
