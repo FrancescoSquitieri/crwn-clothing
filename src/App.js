@@ -3,7 +3,7 @@ import Navbar from "./routes/navbar/navbar.component";
 import Home from "./routes/home/home.component";
 import { Checkout } from "./routes/checkout/checkout.component";
 import { useDispatch } from "react-redux";
-
+import {GlobalStyle} from "./global.styles";
 import Shop from "./routes/shop/shop.component";
 import Authentication from "./routes/authentication/authentication.component";
 import { useEffect } from "react";
@@ -15,6 +15,8 @@ const App = () => {
     dispatch(checkUserSession());
   }, [])
   return (
+  <>
+    <GlobalStyle />
     <Routes>
       <Route path='/' element={<Navbar />}>
         <Route index element={<Home />} />
@@ -23,6 +25,7 @@ const App = () => {
         <Route path='checkout' element={<Checkout />} />
       </Route>
     </Routes>
+  </>
   );
 };
 
